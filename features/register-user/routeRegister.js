@@ -1,12 +1,21 @@
 import express from "express";
-import { addEmployee } from "./controller.js";
+import {
+  addEmployee,
+  detailsOfEmployee,
+  getSingleEMployeeDetails,
+  updateEmployeeInfo,
+  userProfile,
+} from "./controller.js";
 
 const router = express.Router();
 
-router.get("/hello", (req, res) => {
-  res.send("hello");
-});
+router.get("/getSingleEMployeeDetails", getSingleEMployeeDetails);
 
 router.post("/register", addEmployee);
 
+router.get("/detailsOfEmployee", detailsOfEmployee);
+
+router.put("/employeeUpdate/:id", updateEmployeeInfo);
+
+router.get("/getSingleEmployee/:email", userProfile);
 export default router;

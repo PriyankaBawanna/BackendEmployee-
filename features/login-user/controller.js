@@ -4,23 +4,23 @@ export const loginEmployee = async (req, res) => {
 
   EmployeeDetail.findOne({ email: email }, (err, user) => {
     if (user) {
-      console.log("user email is match ");
+      const checkCredential = () => {
+        if (
+          user.role === role &&
+          password === user.password &&
+          email === user.email
+        ) {
+          console.log("email password And role everything are match ");
+          res.send(true);
+        } else {
+          res.send({ message: "Please Check your Credentials " });
+        }
+      };
+
       switch (role) {
         case "Admin":
-          console.log("Admin section ", email, password);
-
           if (user) {
-            if (
-              user.role === "Admin" &&
-              password === user.password &&
-              email === user.email
-            ) {
-              console.log("email password And role everything are match ");
-              res.send(true);
-            } else {
-              console.log("One thing Is not Match ");
-              res.send(false);
-            }
+            checkCredential(role, password, email);
           }
 
           break;
@@ -28,20 +28,7 @@ export const loginEmployee = async (req, res) => {
           console.log("HR section ", email, password);
 
           if (user) {
-            if (
-              role === user.role &&
-              password === user.password &&
-              email === user.email
-            ) {
-              console.log(
-                "email password And role everything are match ",
-                user.role
-              );
-              res.send(true);
-            } else {
-              console.log("One thing Is not Match ");
-              res.send({ message: "Please Check your Credentials " });
-            }
+            checkCredential(role, password, email);
           }
 
           break;
@@ -50,20 +37,7 @@ export const loginEmployee = async (req, res) => {
           console.log("Manger section ", email, password);
 
           if (user) {
-            if (
-              role === user.role &&
-              password === user.password &&
-              email === user.email
-            ) {
-              console.log(
-                "email password And role everything are match ",
-                user.role
-              );
-              res.send(true);
-            } else {
-              console.log("One thing Is not Match ", user.role);
-              res.send({ message: "Please Check your Credentials " });
-            }
+            checkCredential(role, password, email);
           }
 
           break;

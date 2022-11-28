@@ -26,3 +26,48 @@ export const addEmployee = function (req, res) {
     }
   });
 };
+
+export const detailsOfEmployee = async function (req, res) {
+  const employeeData = await EmployeeDetail.find();
+  console.log("Student data ", employeeData);
+  if (employeeData) {
+    console.log("Student data ", employeeData);
+    res.send(employeeData);
+  } else {
+    res.send({ message: "No record Found " });
+  }
+};
+
+export const getSingleEMployeeDetails = async function (req, res) {
+  const employeeData = await EmployeeDetail.findOne({ _id: req.params.id });
+  console.log("employee data ", employeeData);
+  if (employeeData) {
+    res.send(employeeData);
+  } else {
+    res.send({ message: "No record Found " });
+  }
+};
+
+export const updateEmployeeInfo = async (req, res) => {
+  console.log(req.body);
+
+  let result = await EmployeeDetail.updateOne(
+    { _id: req.params.id },
+    {
+      $set: req.body,
+    }
+  );
+  res.send(result);
+};
+
+export const userProfile = async function (req, res) {
+  const employeeData = await EmployeeDetail.findOne({
+    email: req.params.email,
+  });
+  console.log("employee data ", employeeData);
+  if (employeeData) {
+    res.send(employeeData);
+  } else {
+    res.send({ message: "No record Found " });
+  }
+};
